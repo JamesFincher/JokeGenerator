@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
+// const joke = getJoke();
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [data, setData] = useState([]);
+	useEffect(() => {
+		axios.get("https://v2.jokeapi.dev/joke/Any?type=single").then((res) => {
+			setData(res.data);
+		});
+	}, []);
+	const joke = data.joke;
+	return (
+		<div className="App">
+			<h1>Here is a joke for you!</h1>
+			<p>{joke}</p>
+			<br></br>
+			<br></br>
+			Created By James Fincher
+		</div>
+	);
 }
 
 export default App;
